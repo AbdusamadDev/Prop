@@ -9,12 +9,12 @@ from .managers import UserManager
 
 
 class User(AbstractUser, BaseModel):
-    first_name = models.CharField(_("First Name"), max_length=255, null=True, blank=True)
-    last_name = models.CharField(_("Last Name"), max_length=255, null=True, blank=True)
-    middle_name = models.CharField(_("Middle Name"), max_length=255, null=True, blank=True)
-    username = models.CharField(_("Username"), max_length=255, unique=True, null=True, blank=True)
+    full_name = models.CharField(_("Full Name"), max_length=255, null=True, blank=True)
+    username = None
+    phone = models.CharField(_("Phone"), max_length=14, null=True, blank=True)
     email = models.EmailField(_("Email"), max_length=255, unique=True)
-    photo = models.ImageField(_("Photo"), upload_to="users/%Y/%m", blank=True, null=True)
+    faculty = models.CharField(_("Faculty"), max_length=255)
+    course = models.CharField(_("Course"), max_length=255)
 
     objects = UserManager()
     USERNAME_FIELD = "email"
@@ -23,12 +23,6 @@ class User(AbstractUser, BaseModel):
     def __str__(self):
         if self.email:
             return self.email
-        if self.username:
-            return self.username
-
-    @property
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
 
     @property
     def tokens(self):

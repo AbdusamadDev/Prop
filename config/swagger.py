@@ -2,6 +2,7 @@ from django.urls import re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from .generator import BothHttpAndHttpsSchemaGenerator
 
 
 schema_view = get_schema_view(
@@ -13,6 +14,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="BSD License"),
     ),
     public=True,
+    generator_class=BothHttpAndHttpsSchemaGenerator,
     permission_classes=(permissions.AllowAny,),
 )
 
