@@ -12,13 +12,3 @@ services:
     depends_on:
       - db
     container_name: web
-
-  db:
-    image: postgres:13.0-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file: .env.dev.db
-    container_name: db
-
-volumes:
-  postgres_data:
