@@ -12,3 +12,4 @@ drf-yasg==1.21.5
 django-parler==2.3
 Pillow==9.5.0
 pre-commit==3.3.2
+django-cors-headers==4.1.0
