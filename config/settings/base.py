@@ -4,19 +4,22 @@ from pathlib import Path
 
 import environ
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # READING ENV
 env = environ.Env()
-env.read_env(os.path.join(BASE_DIR, ".env"))
-
+env.read_env(os.path.join(BASE_DIR, "sample.dev.env"))
 
 SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = True
 
-
 ALLOWED_HOSTS = ["*"]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
@@ -38,7 +41,6 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
@@ -74,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -90,7 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "Asia/Tashkent"
@@ -98,7 +98,6 @@ TIME_ZONE = "Asia/Tashkent"
 USE_I18N = True
 
 USE_TZ = True
-
 
 STATIC_URL = "staticfiles/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -109,11 +108,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
 }
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
