@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAdminUser
 from apps.application.models import Application
 
 
-class ApplicationListView(generics.CreateAPIView):
+class ApplicationListView(generics.ListAPIView):
     queryset = Application.objects.all()
     serializer_class = ApplicationListSerializer
     permission_classes = [IsAdminUser]
